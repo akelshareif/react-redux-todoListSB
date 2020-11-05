@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import NewTodoForm from './NewTodoForm';
 import Todo from './Todo';
 
 const TodoList = () => {
-    const [todos, setTodos] = useState([]);
-
-    const addTodos = ({ todoText, id }) => {
-        setTodos([...todos, { todoText, id }]);
-    };
-
-    const deleteTodo = (id) => {
-        setTodos(todos.filter((t) => t.id !== id));
-    };
+    const todos = useSelector((store) => store.todos);
 
     return (
         <div>
-            <NewTodoForm addTodos={addTodos} />
+            <NewTodoForm />
 
             <ul>
                 {todos.map((todo) => (
-                    <Todo key={todo.id} text={todo.todoText} handleDelete={() => deleteTodo(todo.id)} />
+                    <Todo key={todo.id} todo={todo} />
                 ))}
             </ul>
         </div>

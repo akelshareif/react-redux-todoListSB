@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { v4 as uuid4 } from 'uuid';
 
-const NewTodoForm = ({ addTodos }) => {
+const NewTodoForm = () => {
+    const dispatch = useDispatch();
     const [todoText, setTodoText] = useState('');
 
     const handleChange = (e) => {
@@ -12,7 +14,7 @@ const NewTodoForm = ({ addTodos }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTodos({ todoText, id: uuid4() });
+        dispatch({ type: 'ADD', payload: { todoText, id: uuid4() } });
         setTodoText('');
     };
 
